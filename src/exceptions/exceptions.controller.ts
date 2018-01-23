@@ -1,4 +1,5 @@
-import { BadRequestException, Controller, Get } from "@nestjs/common";
+import { BadRequestException, Controller, Get, HttpCode, Param } from "@nestjs/common";
+import { BlackCatsServicePipe } from "../pipes/black-cats-service.pipe";
 
 @Controller('exceptions')
 export class ExceptionsController {
@@ -16,4 +17,9 @@ export class ExceptionsController {
         i.set(3);
     }
 
+    @Get(':catId')
+    @HttpCode(200)
+    async blackCats(@Param('catId', new BlackCatsServicePipe()) catId,)  {
+        return `Hello ${catId}. You are matching cat.`;
+    }
 }
