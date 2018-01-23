@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { CatModel } from './cat.model';
 import { CatsService } from './cats.service';
 import { ICat } from './cat.entity';
+import { ApiResponse, ApiUseTags } from "@nestjs/swagger";
 
+@ApiUseTags('cats')
 @Controller('cats')
 export class CatsController {
     constructor(private readonly catsService: CatsService) {
@@ -15,6 +17,7 @@ export class CatsController {
     }
 
     @Get()
+    @ApiResponse({ status: 200, description: 'Returns all your cats'})
     async findAll(): Promise<ICat[]> {
         return await this.catsService.findAll();
     }
